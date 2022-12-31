@@ -27,6 +27,7 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -88,6 +89,11 @@ public class SecurityConfig {
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3600) // 1시간
                 .userDetailsService(userDetailsService);
+
+        http
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true);
 
         return http.build();
     }
