@@ -1,13 +1,17 @@
 package io.security.basicSecurity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -24,19 +28,23 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Autowired
-    private UserDetailsService userDetailsService;
+    @Bean
+    public static BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/admin/pay").hasRole("ADMIN")
+                .antMatchers("/admin/**").access("hasRole('ADMIN') or hasRole('SYS')")
                 .anyRequest().authenticated();
 
         http
                 .formLogin()
-//                .loginPage("/loginPage")
+//                .loginPage("/loginPage").permitAll()
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .usernameParameter("userId")
@@ -60,7 +68,6 @@ public class SecurityConfig {
                         response.sendRedirect("/login");
                     }
                 });
-//                .permitAll();
 
         http
                 .logout()
@@ -88,7 +95,7 @@ public class SecurityConfig {
                 .rememberMe()
                 .rememberMeParameter("remember")
                 .tokenValiditySeconds(3600) // 1시간
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService(bCryptPasswordEncoder()));
 
         http
                 .sessionManagement()
@@ -97,4 +104,35 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    public UserDetailsService userDetailsService(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("kim")
+                .password(bCryptPasswordEncoder.encode("1234"))
+                .roles("USER")
+                .build());
+
+        manager.createUser(User.withUsername("sys")
+                .password(bCryptPasswordEncoder.encode("1234"))
+                .roles("SYS")
+                .build());
+
+        manager.createUser(User.withUsername("admin")
+                .password(bCryptPasswordEncoder.encode("1234"))
+                .roles("ADMIN")
+                .build());
+
+        return manager;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http, UserDetailsService userDetailsService,
+                                                       BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder)
+                .and().build();
+    }
 }
+
