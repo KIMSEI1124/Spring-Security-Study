@@ -13,5 +13,6 @@ before_install:
   - ./gradlew clean build # jar 생성
 
 script:
+  - ./gradlew test -- --coverage
   - docker build -t jukim1124/spring-test .
-  - docker run -e CI=true jukim1124/spring-test ./gradlew test -- --coverage # 테스트 코드 실행
+#  - docker run -e CI=true jukim1124/spring-test ./gradlew test -- --coverage # 테스트 코드 실행
