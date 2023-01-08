@@ -1,0 +1,17 @@
+language: java
+jdk:
+  - openjdk11
+
+services: docker
+
+branches:
+  only:
+    - main
+
+before_install:
+  - echo "start Creating an image with dockerfile"
+  - ./gradlew clean build # jar 생성
+
+script:
+  - docker build -t jukim1124/spring-test .
+  - docker run -e CI=true jukim1124/spring-test ./gradlew test -- --coverage # 테스트 코드 실행
