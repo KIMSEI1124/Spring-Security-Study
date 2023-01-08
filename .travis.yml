@@ -1,18 +1,23 @@
-language: java
+language: java  # 언어
 jdk:
-  - openjdk11
+  - openjdk11 # 버젼
 
 services: docker
 
 branches:
   only:
-    - main
+    - main  # main 브런치만 확인
 
-before_install:
+cache: # 같은 의존성은 다음 배포 때부터 안 받는다.
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+before_install: # 스크립트 실행전 jar 생성과 echo문
   - echo "start Creating an image with dockerfile"
   - ./gradlew clean build # jar 생성
 
 script:
-  - ./gradlew test -- --coverage
+  - ./gradlew test
   - docker build -t jukim1124/spring-test .
 #  - docker run -e CI=true jukim1124/spring-test ./gradlew test -- --coverage # 테스트 코드 실행
