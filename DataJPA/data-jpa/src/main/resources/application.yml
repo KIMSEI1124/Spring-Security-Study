@@ -4,3 +4,11 @@ spring:
     url: jdbc:h2:tcp://localhost/~/code/study/db/datajpa
     username: sa
     password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
