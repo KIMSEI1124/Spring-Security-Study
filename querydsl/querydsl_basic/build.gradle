@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.study'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    /* Querydsl Dependencies Start */
+    // 의존성 추가
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    // java.lang.NoClassDefFoundError 대응을 위해 추가
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    /* Querydsl Dependencies End */
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+/* querydsl Start */
+//Querydsl Q Class 생성 위치
+def generated = 'src/main/generated'
+
+//Querydsl Q Class 생성 위치 지정
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+//java source set 에 Querydsl Q Class 위치 추가
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+//gradle clean 시, Q Class 디렉토리까지 삭제하도록 설정
+clean {
+    delete file(generated)
+}
+/* querydsl End */
