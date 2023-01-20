@@ -1,0 +1,9 @@
+
+y
+java:S1488D"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ñÿ÷¦üÿÿÿÿ
+y
+java:S1488R"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ñÿ÷¦üÿÿÿÿ
+y
+java:S1488d"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ñÿ÷¦üÿÿÿÿ
+Q	java:S125O"<This block of commented-out lines of code should be removed.(üþÖŠ
+h	java:S100`"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êýì—ûÿÿÿÿ
