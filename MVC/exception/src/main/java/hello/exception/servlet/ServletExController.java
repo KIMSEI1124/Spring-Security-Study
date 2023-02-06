@@ -12,7 +12,7 @@ import java.io.IOException;
 public class ServletExController {
 
     @GetMapping("/error-ex")
-    public String errorEx() {
+    public void errorEx() {
         throw new RuntimeException("예외 발생!");
     }
 
