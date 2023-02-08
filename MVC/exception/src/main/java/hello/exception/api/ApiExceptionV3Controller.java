@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-public class ApiExceptionV2Controller {
+public class ApiExceptionV3Controller {
 
 
 
