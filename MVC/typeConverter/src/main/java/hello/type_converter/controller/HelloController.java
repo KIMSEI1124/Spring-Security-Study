@@ -11,22 +11,22 @@ public class HelloController {
 
     @GetMapping("/hello-v1")
     public String helloV1(HttpServletRequest request) {
-        String data = request.getParameter("data"); // 문자 타입 조회
-        int intValue = Integer.parseInt(data);   // 숫자 타입으로 변경
+        String data = request.getParameter("data");//문자 타입 조회
+        int intValue = Integer.parseInt(data); //숫자 타입으로 변경
         System.out.println("intValue = " + intValue);
-        return "OK";
+        return "ok";
     }
 
     @GetMapping("/hello-v2")
     public String helloV2(@RequestParam Integer data) {
         System.out.println("data = " + data);
-        return "OK";
+        return "ok";
     }
 
     @GetMapping("/ip-port")
     public String ipPort(@RequestParam IpPort ipPort) {
-        System.out.println("IP = " + ipPort.getIp());
-        System.out.println("PORT = " + ipPort.getPort());
-        return "OK";
+        System.out.println("ipPort IP = " + ipPort.getIp());
+        System.out.println("ipPort PORT = " + ipPort.getPort());
+        return "ok";
     }
 }
