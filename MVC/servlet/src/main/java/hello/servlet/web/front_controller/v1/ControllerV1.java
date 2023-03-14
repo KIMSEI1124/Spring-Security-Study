@@ -1,4 +1,4 @@
-package hello.servlet.web.frontController.v1;
+package hello.servlet.web.front_controller.v1;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
