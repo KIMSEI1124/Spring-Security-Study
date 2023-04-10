@@ -16,4 +16,8 @@ public class MemberService {
                 .build();
         memberRepository.save(saveMember);
     }
+
+    public Member findById(Long id) {
+        return memberRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
 }
