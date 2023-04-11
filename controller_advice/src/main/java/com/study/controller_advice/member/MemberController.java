@@ -1,4 +1,4 @@
-package com.study.controller_advice;
+package com.study.controller_advice.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;

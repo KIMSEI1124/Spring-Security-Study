@@ -1,4 +1,4 @@
-package com.study.controller_advice;
+package com.study.controller_advice.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

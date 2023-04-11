@@ -1,5 +1,7 @@
-package com.study.controller_advice;
+package com.study.controller_advice.member;
 
+import com.study.controller_advice.member.exception.MemberErrorCode;
+import com.study.controller_advice.member.exception.MemberException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ public class MemberService {
     }
 
     public Member findById(Long id) {
-        return memberRepository.findById(id).orElseThrow(RuntimeException::new);
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_EXIST));
     }
 }

@@ -1,4 +1,4 @@
-package com.study.controller_advice;
+package com.study.controller_advice.member;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
