@@ -1,4 +1,4 @@
-package com.multi.mybatis;
+package com.multi.mybatis.domain;
 
 import lombok.*;
 

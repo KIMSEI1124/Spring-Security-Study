@@ -1,0 +1,10 @@
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.multi.mybatis
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 1234
+    url: jdbc:h2:tcp://localhost/~/code/study/db/mybatis_study

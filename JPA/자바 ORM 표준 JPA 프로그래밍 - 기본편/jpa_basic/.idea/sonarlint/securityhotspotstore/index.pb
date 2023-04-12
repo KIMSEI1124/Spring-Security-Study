@@ -7,7 +7,7 @@ a
 1src/main/java/com/study/test/CheckingAccount.java,a/9/a9485c00d522892490989848a8ce2fa7354bf032
 e
 5src/main/java/com/study/test/InheritanceExample1.java,1/2/125b0fd188760c5a6cdacdbeb4af683040106b9f
-j
-:src/main/java/com/study/jpa_basic/JpaBasicApplication.java,e/f/efdb78284a6cd60333969084b49688a924371d3f
 ^
 .src/main/java/com/study/jpa_basic/JpaMain.java,3/d/3da7b8884193f44374b451507af20cc249a47fa0
+j
+:src/main/java/com/study/jpa_basic/JpaBasicApplication.java,e/f/efdb78284a6cd60333969084b49688a924371d3f

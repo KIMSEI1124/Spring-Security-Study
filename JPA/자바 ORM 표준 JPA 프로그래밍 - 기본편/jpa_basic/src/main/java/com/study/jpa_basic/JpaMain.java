@@ -24,6 +24,8 @@ public class JpaMain {
 
             // 영속 엔티티 조회
             Member memberA = em.find(Member.class, "HelloJPA");
+            Member memberB = em.find(Member.class, "HelloJPA");
+
 
             // 준영속 상태
             em.detach(memberA);

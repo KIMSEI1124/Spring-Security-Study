@@ -1,7 +1,8 @@
-package com.multi.mybatis;
+package com.multi.mybatis.mapper;
 
+import com.multi.mybatis.dto.response.MemberResponse;
+import com.multi.mybatis.domain.MemberVO;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +13,6 @@ public interface MemberMapper {
     int insertMember(MemberVO member);
 
     MemberVO selectMember(@Param("id") String id);
-
-    HashMap<String, String> selectMember2(@Param("id") String id);
-
-    HashMap<String, String> selectMember3(@Param("id") String id);
 
     MemberResponse selectMemberDto(@Param("id") String id);
 

@@ -1,4 +1,4 @@
-package com.multi.mybatis;
+package com.multi.mybatis.dto.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;

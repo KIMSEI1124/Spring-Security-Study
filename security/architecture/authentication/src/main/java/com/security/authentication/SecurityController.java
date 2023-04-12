@@ -1,2 +1,4 @@
-package com.security.authentication;public class SecurityController {
+package com.security.authentication;
+
+public class SecurityController {
 }

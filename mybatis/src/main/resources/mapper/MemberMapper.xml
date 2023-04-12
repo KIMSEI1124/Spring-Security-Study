@@ -1,45 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	 
-<mapper namespace="com.mysite.springtest0202.MemberMapper">
-	<resultMap type="HashMap" id="memberHashMap">
-		<result property="id" column="id" />
-		<result property="pw" column="pw" />
-	</resultMap>
-	
-	<select id="getMembers" resultType="MemberVO">
-		select * from member order by id
-	</select>
-	
-	<insert id="insertMember" parameterType="MemberVO">
-		insert into member values(#{id, javaType=String}, #{pw, jdbcType=VARCHAR}, #{email})
-	</insert>
-	
-	<!-- id:메서드명, parameterType:메서드에 전달될 파라메터, resultType:select 결과값 저장에 사용 -->
-	<select id="selectMember" parameterType="String" resultType="MemberVO">
-		select * from member where id=#{id}
-	</select>
-	
-	<select id="selectMember2" parameterType="String" resultMap="memberHashMap">
-		select id, pw from member where id=#{id}
-	</select>
-	
-	<select id="selectMember3" parameterType="String" resultType="HashMap">
-		select id, pw from member where id=#{id}
-	</select>
-	
-	<update id="updateMember" parameterType="MemberVO">
-		update member set pw=#{pw}, email=#{email} where id=#{id}
-	</update>
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<delete id="deleteMember" parameterType="String">
-		delete from member where id=#{id}
-	</delete>
-	
-	<select id="countMember" resultType="int">
-		select count(*) from member
-	</select>
+<mapper namespace="com.multi.mybatis.mapper.MemberMapper">
+    <resultMap type="HashMap" id="memberHashMap">
+        <result property="id" column="id"/>
+        <result property="pw" column="pw"/>
+    </resultMap>
+
+    <select id="getMembers" resultType="MemberVO">
+        select *
+        from member
+        order by id
+    </select>
+
+    <insert id="insertMember" parameterType="MemberVO">
+        insert into member
+        values (#{id}, #{pw}, #{email})
+    </insert>
+
+    <!-- id:메서드명, parameterType:메서드에 전달될 파라메터, resultType:select 결과값 저장에 사용 -->
+    <select id="selectMember" parameterType="String" resultType="MemberVO">
+        select *
+        from member
+        where id = #{id}
+    </select>
+
+    <select id="selectMemberDto" parameterType="String" resultType="com.multi.mybatis.dto.response.MemberResponse">
+        select id, pw
+        from member
+        where id = #{id}
+    </select>
+
+    <update id="updateMember" parameterType="MemberVO">
+        update member
+        set pw=#{pw},
+            email=#{email}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMember" parameterType="String">
+        delete
+        from member
+        where id = #{id}
+    </delete>
+
+    <select id="countMember" resultType="int">
+        select count(*)
+        from member
+    </select>
 
 </mapper>

@@ -1,67 +1,51 @@
-package com.multi.mybatis;
+package com.multi.mybatis.controller;
 
+import com.multi.mybatis.domain.MemberVO;
+import com.multi.mybatis.dto.response.MemberResponse;
+import com.multi.mybatis.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
 
-    private final MemberRepositoryImpl memberServiceImpl;
+    private final MemberService memberService;
 
-    @GetMapping("/getMembers")
-    ArrayList<MemberVO> getMembers() {
-        return memberServiceImpl.getMembers();
+    @GetMapping("/findAll")
+    List<MemberVO> getMembers() {
+        return memberService.findAll();
     }
 
-    @PostMapping("/insertMember")
+    @PostMapping("/save")
     public int insertMember(MemberVO member) {
-        return memberServiceImpl.insertMember(member);
+        return memberService.save(member);
     }
 
-    @GetMapping("/selectMember")
+    @GetMapping("/findByVO")
     public MemberVO selectMember(@RequestParam String id) {
-        return memberServiceImpl.selectMember(id);
+        return memberService.findByVO(id);
     }
 
-    @GetMapping("/selectMember2")
-    public HashMap<String, String> selectMember2(String id) {
-        return memberServiceImpl.selectMember2(id);
-    }
-
-    @GetMapping("/selectMember3")
-    public HashMap<String, String> selectMember3(String id) {
-        return memberServiceImpl.selectMember3(id);
-    }
-
-    @GetMapping("/selectMemberDto")
-    public ResponseEntity<MemberResponse> selectMemberDto(String id) {
-        MemberResponse response = memberServiceImpl.selectMemberDto(id);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/selectMemberDto2")
+    @GetMapping("/findByDto")
     public MemberResponse selectMemberDto2(@RequestParam String id) {
-        return memberServiceImpl.selectMemberDto(id);
+        return memberService.findByResponse(id);
     }
 
-    @PostMapping("/updateMember")
+    @PostMapping("/update")
     public int updateMember(MemberVO member) {
-        return memberServiceImpl.updateMember(member);
+        return memberService.update(member);
     }
 
-    @PostMapping("/deleteMember")
+    @DeleteMapping("/delete")
     public int deleteMember(String id) {
-        return memberServiceImpl.deleteMember(id);
+        return memberService.delete(id);
     }
 
-    @GetMapping("/countMember")
+    @GetMapping("/count")
     public int countMember() {
-        return memberServiceImpl.countMember();
+        return memberService.count();
     }
-
 }
