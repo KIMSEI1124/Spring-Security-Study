@@ -1,0 +1,25 @@
+package com.security.authorization;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests()
+                // antMatchers -> requestMatchers
+                .requestMatchers("/user").hasRole("USER")
+                .anyRequest().permitAll();
+        http
+                .formLogin();
+
+        return http.build();
+    }
+}
