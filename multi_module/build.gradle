@@ -1,35 +1,78 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.1.1'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.1.1'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
-group = 'com.study'
-version = '0.0.1-SNAPSHOT'
+/* 모든 프로젝트 적용 */
+allprojects {
+    group = 'com.study'
+    version = '0.0.1-SNAPSHOP'
+    sourceCompatibility = '17'
 
-java {
-	sourceCompatibility = '17'
+    repositories {
+        mavenCentral()
+    }
 }
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+/* 서브 프로젝트 적용 */
+subprojects {
+    apply plugin: 'java'
+
+    /* 공통적으로 사용하는 dependencies */
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        compileOnly 'org.projectlombok:lombok'
+        runtimeOnly 'com.h2database:h2'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
 }
 
-repositories {
-	mavenCentral()
+/* 서브 프로젝트 개별 설정 */
+project(':core') {
+    dependencies {
+
+    }
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+project(':api') {
+    dependencies {
+
+    }
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+//group = 'com.study'
+//version = '0.0.1-SNAPSHOT'
+//
+//java {
+//	sourceCompatibility = '17'
+//}
+//
+//configurations {
+//	compileOnly {
+//		extendsFrom annotationProcessor
+//	}
+//}
+//
+//repositories {
+//	mavenCentral()
+//}
+//
+//dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	compileOnly 'org.projectlombok:lombok'
+//	runtimeOnly 'com.h2database:h2'
+//	annotationProcessor 'org.projectlombok:lombok'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//}
+//
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
