@@ -1,2 +1,6 @@
-package com.sei.replication.member;public interface MemberRepository {
+package com.sei.replication.member;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }

@@ -1,2 +1,6 @@
-package com.example.demo;public interface RelatedRepository {
+package com.example.demo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RelatedRepository extends JpaRepository<Related, Long> {
 }
