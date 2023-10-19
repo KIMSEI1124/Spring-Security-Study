@@ -1,9 +1,7 @@
 package com.study.jpa.post.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.study.jpa.member.domain.Member;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
@@ -13,6 +11,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Where(clause = "is_delete = false")
 @Entity
+@Table(catalog = "post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +20,10 @@ public class Post {
     private String content;
 
     private boolean isDelete;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public static Post from(String content) {
         return Post.builder()

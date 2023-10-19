@@ -39,4 +39,18 @@ class PostServiceTest {
         /* Then */
         assertThat(postList).hasSize(2);
     }
+
+    @DisplayName("@Where 비활성화에 성공한다.")
+    @Test
+    void whereAnnotationDisableTest() {
+        /* Given */
+        int id = postTwo.getId();
+        postService.deleteById(id);
+
+        /* When */
+        List<Post> postList = postService.findAllByDisableWhereAnnotation();
+
+        /* Then */
+        assertThat(postList).hasSize(3);
+    }
 }

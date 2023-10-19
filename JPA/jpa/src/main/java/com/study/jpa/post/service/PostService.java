@@ -29,6 +29,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> findAllByDisableWhereAnnotation() {
+        return postRepository.findAllByDisableWhereAnnotation();
+    }
+
     @Transactional
     public void deleteById(int id) {
         Post findPost = findById(id);
