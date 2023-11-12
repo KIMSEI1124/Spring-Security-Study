@@ -8,6 +8,7 @@ tasks.named('jar') { // jar 설정은 끄기
 
 dependencies {
     implementation project(':module-core')
+    implementation project(':module-data')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 }

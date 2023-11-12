@@ -1,7 +1,7 @@
-package com.core.member.dto.req;
+package com.study.module.dto.req;
 
-import com.data.member.Member;
-import com.data.team.Team;
+import com.study.module.member.Member;
+import com.study.module.team.Team;
 
 public record MemberSaveReq(String name,
                             int age,

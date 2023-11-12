@@ -1,9 +1,7 @@
-package com.core.member;
+package com.study.module.member;
 
-import com.core.member.dto.req.MemberSaveReq;
-import com.core.team.TeamFindService;
-import com.data.member.Member;
-import com.data.member.MemberRepository;
+import com.study.module.dto.req.MemberSaveReq;
+import com.study.module.team.TeamFindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

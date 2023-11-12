@@ -1,8 +1,6 @@
-package com.core.team;
+package com.study.module.team;
 
-import com.core.global.service.EntityFindable;
-import com.data.team.Team;
-import com.data.team.TeamRepository;
+import com.study.module.global.service.EntityFindable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

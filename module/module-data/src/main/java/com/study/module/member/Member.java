@@ -1,32 +1,34 @@
-package com.data.team;
+package com.study.module.member;
 
-import com.data.member.Member;
+import com.study.module.team.Team;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Entity
-public class Team {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
-    @OneToMany(mappedBy = "team")
-    private List<Member> members = new ArrayList<>();
+    private int age;
 
-    public static Team from(String name) {
-        return Team.builder()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    public static Member of(String name, int age, Team team) {
+        return Member.builder()
                 .name(name)
+                .age(age)
+                .team(team)
                 .build();
     }
 }

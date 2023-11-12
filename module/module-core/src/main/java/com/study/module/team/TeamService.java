@@ -1,6 +1,5 @@
-package com.core.team;
+package com.study.module.team;
 
-import com.data.team.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
