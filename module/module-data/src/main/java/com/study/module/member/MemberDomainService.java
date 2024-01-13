@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class MemberService {
+public class MemberDomainService {
     private final MemberRepository memberRepository;
 
     public Member save(Member member) {

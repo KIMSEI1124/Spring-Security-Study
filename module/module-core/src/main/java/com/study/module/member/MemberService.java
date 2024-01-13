@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class MemberService {
-    private final MemberRepository memberRepository;
+    private final MemberDomainService service;
     private final TeamFindService teamFindService;
 
     @Transactional
     public Member member(MemberSaveReq req) {
-        return memberRepository.save(req.toEntity(
+        return service.save(req.toEntity(
                 teamFindService.findById(req.teamId())));
     }
 }
