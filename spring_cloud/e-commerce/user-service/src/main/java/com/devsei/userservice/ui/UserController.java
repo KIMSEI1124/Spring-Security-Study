@@ -7,12 +7,12 @@ import com.devsei.userservice.vo.UserCreateReq;
 import com.devsei.userservice.vo.UserCreateRes;
 import com.devsei.userservice.vo.UserFindRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,18 +21,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
     private final Greeting greeting;
-//    private final Environment env;
-
-//    @Autowired
-//    public UserController(Environment env) {
-//        this.env = env;
-//    }
+    private final Environment environment;
 
     @GetMapping("/health_check")
     public String status() {
-        return "It's Working in User Service on PORT";
+        return String.format("It's Working in User Service on PORT %s",
+                environment.getProperty("local.server.port"));
     }
 
     @GetMapping("/welcome")
@@ -50,13 +45,7 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserFindRes>> getUsers() {
         List<UserFindRes> res = new ArrayList<>();
-        for (UserJpaEntity userJpaEntity : userService.getUserByAll())
-            res.add(UserFindRes.builder()
-                    .name(userJpaEntity.getName())
-                    .email(userJpaEntity.getEmail())
-                    .userId(userJpaEntity.getUserId())
-                    .orders(new ArrayList<>())
-                    .build());
+        userService.getUserByAll().forEach(user -> res.add(UserFindRes.of(user, new ArrayList<>())));
 
         return ResponseEntity.ok(res);
     }

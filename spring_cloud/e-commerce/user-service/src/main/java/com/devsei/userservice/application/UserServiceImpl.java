@@ -38,13 +38,7 @@ public class UserServiceImpl implements UserService {
                 () -> new UsernameNotFoundException("User not Found")
         );
 
-        List<OrderRes> orders = new ArrayList<>();
-        return UserFindRes.builder()
-                .email(findUserEntity.getEmail())
-                .name(findUserEntity.getName())
-                .userId(findUserEntity.getUserId())
-                .orders(orders)
-                .build();
+        return UserFindRes.of(findUserEntity, new ArrayList<>());
     }
 
     @Override
