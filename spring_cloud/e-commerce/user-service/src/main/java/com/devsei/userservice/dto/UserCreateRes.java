@@ -1,4 +1,4 @@
-package com.devsei.userservice.vo;
+package com.devsei.userservice.dto;
 
 import lombok.Builder;
 import lombok.Data;

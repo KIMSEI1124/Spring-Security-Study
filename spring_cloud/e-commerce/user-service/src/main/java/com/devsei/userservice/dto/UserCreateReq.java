@@ -1,4 +1,4 @@
-package com.devsei.userservice.vo;
+package com.devsei.userservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

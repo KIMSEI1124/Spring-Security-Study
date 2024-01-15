@@ -1,4 +1,4 @@
-package com.devsei.userservice.dto;
+package com.devsei.userservice.vo;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-public class UserDto {
+public class UserVo {
     private String email;
     private String name;
     private String password;

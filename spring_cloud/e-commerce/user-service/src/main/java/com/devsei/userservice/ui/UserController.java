@@ -1,11 +1,8 @@
 package com.devsei.userservice.ui;
 
 import com.devsei.userservice.application.UserService;
-import com.devsei.userservice.domain.UserJpaEntity;
+import com.devsei.userservice.dto.*;
 import com.devsei.userservice.vo.Greeting;
-import com.devsei.userservice.vo.UserCreateReq;
-import com.devsei.userservice.vo.UserCreateRes;
-import com.devsei.userservice.vo.UserFindRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -17,7 +14,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/user-service")
+@RequestMapping("/")
+//@RequestMapping("/user-service")
 public class UserController {
 
     private final UserService userService;
@@ -54,5 +52,10 @@ public class UserController {
     public ResponseEntity<UserFindRes> getUser(@PathVariable("userId") String userId) {
         UserFindRes res = userService.getUserByUserId(userId);
         return ResponseEntity.ok(res);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginRes> login(@RequestBody LoginReq req) {
+        return ResponseEntity.ok().build();
     }
 }

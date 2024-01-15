@@ -2,28 +2,27 @@ package com.devsei.userservice.application;
 
 import com.devsei.userservice.domain.UserJpaEntity;
 import com.devsei.userservice.domain.UserRepository;
+import com.devsei.userservice.dto.UserCreateReq;
+import com.devsei.userservice.dto.UserCreateRes;
+import com.devsei.userservice.dto.UserFindRes;
 import com.devsei.userservice.mapper.UserMapper;
-import com.devsei.userservice.vo.OrderRes;
-import com.devsei.userservice.vo.UserCreateReq;
-import com.devsei.userservice.vo.UserCreateRes;
-import com.devsei.userservice.vo.UserFindRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
-
+    private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
 
     @Override
     public UserCreateRes createUser(UserCreateReq req) {
-        UserJpaEntity savedEntity = userRepository.save(mapper.toJpaEntity(req));
+        UserJpaEntity savedEntity = userRepository.save(mapper.toJpaEntity(req, encoder));
 
         return UserCreateRes.builder()
                 .userId(savedEntity.getUserId())

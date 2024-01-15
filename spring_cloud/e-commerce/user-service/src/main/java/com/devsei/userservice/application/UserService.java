@@ -1,9 +1,9 @@
 package com.devsei.userservice.application;
 
 import com.devsei.userservice.domain.UserJpaEntity;
-import com.devsei.userservice.vo.UserCreateReq;
-import com.devsei.userservice.vo.UserCreateRes;
-import com.devsei.userservice.vo.UserFindRes;
+import com.devsei.userservice.dto.UserCreateReq;
+import com.devsei.userservice.dto.UserCreateRes;
+import com.devsei.userservice.dto.UserFindRes;
 
 public interface UserService {
     UserCreateRes createUser(UserCreateReq req);

@@ -1,4 +1,4 @@
-package com.devsei.userservice.vo;
+package com.devsei.userservice.dto;
 
 import com.devsei.userservice.domain.UserJpaEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
