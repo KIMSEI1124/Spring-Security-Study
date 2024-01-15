@@ -21,7 +21,9 @@ public class WebConfig {
                 .sessionManagement(sessionManagementConfigurer ->
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
-                        registry.requestMatchers("/users/**").permitAll())
+                        registry.requestMatchers("/user-service/**").permitAll())
                 .build();
     }
+
+    
 }
