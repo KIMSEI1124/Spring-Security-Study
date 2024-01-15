@@ -1,6 +1,7 @@
 package com.devsei.userservice.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -14,4 +15,12 @@ public class UserJpaEntity {
     private String name;
     private String userId;
     private String encryptedPassword;
+
+    @Builder
+    public UserJpaEntity(String email, String name, String userId, String encryptedPassword) {
+        this.email = email;
+        this.name = name;
+        this.userId = userId;
+        this.encryptedPassword = encryptedPassword;
+    }
 }

@@ -2,29 +2,53 @@ package com.devsei.userservice.application;
 
 import com.devsei.userservice.domain.UserJpaEntity;
 import com.devsei.userservice.domain.UserRepository;
-import com.devsei.userservice.dto.UserDto;
+import com.devsei.userservice.mapper.UserMapper;
+import com.devsei.userservice.vo.OrderRes;
+import com.devsei.userservice.vo.UserCreateReq;
+import com.devsei.userservice.vo.UserCreateRes;
+import com.devsei.userservice.vo.UserFindRes;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
-    private final BCryptPasswordEncoder encoder;
+    private final UserMapper mapper;
+
     private final UserRepository userRepository;
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        userDto.generatedUserId();
+    public UserCreateRes createUser(UserCreateReq req) {
+        UserJpaEntity savedEntity = userRepository.save(mapper.toJpaEntity(req));
 
-        ModelMapper mapper = new ModelMapper();
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        UserJpaEntity userJpaEntity = mapper.map(userDto, UserJpaEntity.class);
-        userJpaEntity.setEncryptedPassword(encoder.encode(userDto.getPassword()));
+        return UserCreateRes.builder()
+                .userId(savedEntity.getUserId())
+                .email(savedEntity.getEmail())
+                .name(savedEntity.getName())
+                .build();
+    }
 
-        UserJpaEntity save = userRepository.save(userJpaEntity);
-        return mapper.map(save, UserDto.class);
+    @Override
+    public UserFindRes getUserByUserId(String userId) {
+        UserJpaEntity findUserEntity = userRepository.findByUserId(userId).orElseThrow(
+                () -> new UsernameNotFoundException("User not Found")
+        );
+
+        List<OrderRes> orders = new ArrayList<>();
+        return UserFindRes.builder()
+                .email(findUserEntity.getEmail())
+                .name(findUserEntity.getName())
+                .userId(findUserEntity.getUserId())
+                .orders(orders)
+                .build();
+    }
+
+    @Override
+    public Iterable<UserJpaEntity> getUserByAll() {
+        return userRepository.findAll();
     }
 }

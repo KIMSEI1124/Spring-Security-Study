@@ -1,2 +1,15 @@
-package com.devsei.userservice.vo;public class OrderRes {
+package com.devsei.userservice.vo;
+
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+public class OrderRes {
+    private String productId;
+    private Integer qty;
+    private Integer unitPrice;
+    private Integer totalPrice;
+    private Date createAt;
+    private String orderId;
 }
