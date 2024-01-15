@@ -1,9 +1,12 @@
 package com.devsei.userservice.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 @Table(name = "users")
 @Entity

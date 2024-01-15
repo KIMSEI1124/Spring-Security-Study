@@ -4,11 +4,11 @@ server:
 spring:
   application:
     name: order-service
-  #  datasource:
-  #    driver-class-name: org.h2.Driver
-  #    username: sa
-  #    password: 1234
-  #    url: jdbc:h2:~/Desktop/Code/db/cloud
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 1234
+    url: jdbc:h2:tcp://localhost/~/code/study/db/spring_cloud
   jpa:
     hibernate:
       ddl-auto: update

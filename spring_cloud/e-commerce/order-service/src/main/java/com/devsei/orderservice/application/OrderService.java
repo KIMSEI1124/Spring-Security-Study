@@ -1,11 +1,11 @@
 package com.devsei.orderservice.application;
 
 import com.devsei.orderservice.domain.OrderJapEntity;
+import com.devsei.orderservice.dto.OrderReq;
 import com.devsei.orderservice.dto.OrderRes;
-import com.devsei.orderservice.vo.OrderVo;
 
 public interface OrderService {
-    OrderRes createOrder(OrderVo vo);
+    OrderRes createOrder(OrderReq req, String userId);
 
     Iterable<OrderJapEntity> findAllByUserId(String userId);
 
