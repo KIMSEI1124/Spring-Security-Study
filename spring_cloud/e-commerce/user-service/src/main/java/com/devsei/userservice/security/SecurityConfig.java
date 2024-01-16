@@ -24,7 +24,8 @@ import java.util.function.Supplier;
 @Configuration
 @Slf4j
 public class SecurityConfig {
-    private static final String ALLOWED_IP_ADDRESS = "192.0.0.2"; // API Gateway
+    private static final String ALLOWED_IP_ADDRESS = "70.12.247.176"; // API Gateway
+    //    private static final String ALLOWED_IP_ADDRESS = "192.0.0.2"; // API Gateway
     private static final IpAddressMatcher ALLOWED_ID_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS);
     private final UserRepository userRepository;
     private final Environment environment;
@@ -38,11 +39,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagementConfigurer ->
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers("/**").access(this::hasIpAddress))
-                .addFilter(getAuthenticationFilter())
+//                .addFilter(getAuthenticationFilter())
                 .build();
     }
 
@@ -53,6 +55,9 @@ public class SecurityConfig {
         );
     }
 
+    /**
+     * 여유되면 하단에 있는 코드 살리기
+     */
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(userRepository, environment);
         authenticationFilter.setAuthenticationManager(authenticationManager(authenticationConfiguration));

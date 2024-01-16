@@ -1,5 +1,6 @@
 package com.devsei.userservice.ui;
 
+import com.devsei.userservice.application.AuthService;
 import com.devsei.userservice.application.UserService;
 import com.devsei.userservice.dto.*;
 import com.devsei.userservice.vo.Greeting;
@@ -14,10 +15,11 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/")
-//@RequestMapping("/user-service")
+//@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
 
+    private final AuthService authService;
     private final UserService userService;
     private final Greeting greeting;
     private final Environment environment;
@@ -54,8 +56,9 @@ public class UserController {
         return ResponseEntity.ok(res);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<LoginRes> login(@RequestBody LoginReq req) {
-        return ResponseEntity.ok().build();
+        LoginRes res = authService.login(req);
+        return ResponseEntity.ok(res);
     }
 }

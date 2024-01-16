@@ -1,2 +1,6 @@
-package com.devsei.userservice.domain;public interface TokenRepository {
+package com.devsei.userservice.domain;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface TokenRepository extends CrudRepository<AuthToken, Long> {
 }

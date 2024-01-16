@@ -5,14 +5,21 @@ spring:
   application:
     name: user-service
   datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
+    #    driver-class-name: org.h2.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    username: sa
+    username: root
     password: 1234
-    url: jdbc:h2:tcp://localhost/~/code/study/db/spring_cloud
+    #    url: jdbc:h2:tcp://localhost/~/code/study/db/spring_cloud
+    url: jdbc:mysql://127.0.0.1:3306/spring_cloud
   jpa:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+  data:
+    redis:
+      port: 6379
+      host: localhost
 
 eureka:
   instance:
@@ -27,5 +34,5 @@ greeting:
   message: Welcome to the Simple E-commerce.
 
 token:
-  secret: user_token
+  secret: UserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserTokenUserToken
   expiration-time: 86400000
