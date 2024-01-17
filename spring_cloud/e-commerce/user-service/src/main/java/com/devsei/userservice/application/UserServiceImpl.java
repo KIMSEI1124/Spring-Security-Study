@@ -2,16 +2,23 @@ package com.devsei.userservice.application;
 
 import com.devsei.userservice.domain.UserJpaEntity;
 import com.devsei.userservice.domain.UserRepository;
+import com.devsei.userservice.dto.OrderRes;
 import com.devsei.userservice.dto.UserCreateReq;
 import com.devsei.userservice.dto.UserCreateRes;
 import com.devsei.userservice.dto.UserFindRes;
 import com.devsei.userservice.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -19,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final RestTemplate restTemplate;
+    private final Environment environment;
 
     @Override
     public UserCreateRes createUser(UserCreateReq req) {
@@ -37,7 +46,14 @@ public class UserServiceImpl implements UserService {
                 () -> new UsernameNotFoundException("User not Found")
         );
 
-        return UserFindRes.of(findUserEntity, new ArrayList<>());
+        /* Using RestTemplate */
+        String url = String.format("http://order-service/order-service/%s/orders", userId);
+        ResponseEntity<List<OrderRes>> orderListResponse = restTemplate.exchange(url, HttpMethod.GET, null,
+                new ParameterizedTypeReference<>() {
+                });
+        List<OrderRes> ordersList = orderListResponse.getBody();
+
+        return UserFindRes.of(findUserEntity, ordersList);
     }
 
     @Override

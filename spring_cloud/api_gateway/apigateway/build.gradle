@@ -35,6 +35,10 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.2.1'
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:3.2.1'
 }
 
 dependencyManagement {
