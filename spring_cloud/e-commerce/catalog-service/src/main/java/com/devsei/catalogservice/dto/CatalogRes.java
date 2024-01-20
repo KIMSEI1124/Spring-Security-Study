@@ -25,7 +25,6 @@ public class CatalogRes {
                 .productName(catalog.getProductName())
                 .unitPrice(catalog.getUnitPrice())
                 .stock(catalog.getStock())
-                .createAt(catalog.getCreateAt())
                 .build();
     }
 }

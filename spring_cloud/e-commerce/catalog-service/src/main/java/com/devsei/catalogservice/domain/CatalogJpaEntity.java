@@ -1,13 +1,10 @@
 package com.devsei.catalogservice.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
+import lombok.*;
 
-import java.util.Date;
-
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 @Entity
@@ -28,8 +25,4 @@ public class CatalogJpaEntity {
 
     @Column(nullable = false)
     private int unitPrice;
-
-    @Column(nullable = false, updatable = false, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
-    private Date createAt;
 }

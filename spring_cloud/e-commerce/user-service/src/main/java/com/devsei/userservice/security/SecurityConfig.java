@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 @Slf4j
 public class SecurityConfig {
     private static final String ALLOWED_IP_ADDRESS = "70.12.247.176"; // API Gateway
-    //    private static final String ALLOWED_IP_ADDRESS = "192.0.0.2"; // API Gateway
+    //    private static final String ALLOWED_IP_ADDRESS = "192.168.64.1"; // API Gateway
     private static final IpAddressMatcher ALLOWED_ID_ADDRESS_MATCHER = new IpAddressMatcher(ALLOWED_IP_ADDRESS);
     private final UserRepository userRepository;
     private final Environment environment;
@@ -42,8 +42,8 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagementConfigurer ->
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(registry ->
-                        registry.requestMatchers("/**").access(this::hasIpAddress))
+//                .authorizeHttpRequests(registry ->
+//                        registry.requestMatchers("/**").access(this::hasIpAddress))
 //                .addFilter(getAuthenticationFilter())
                 .build();
     }
