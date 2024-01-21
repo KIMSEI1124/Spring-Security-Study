@@ -37,6 +37,10 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     // https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
     implementation 'org.springframework.kafka:spring-kafka:3.1.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:3.2.1'
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
 }
 
 dependencyManagement {

@@ -4,6 +4,7 @@ import com.devsei.orderservice.application.OrderService;
 import com.devsei.orderservice.dto.OrderReq;
 import com.devsei.orderservice.dto.OrderRes;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/order-service")
+@Slf4j
 @RestController
 public class OrderController {
     private final OrderService orderService;
@@ -28,14 +30,18 @@ public class OrderController {
     @PostMapping("/{userId}/orders")
     public ResponseEntity<OrderRes> createOrder(@RequestBody OrderReq req,
                                                 @PathVariable("userId") String userId) {
+        log.info("Before retrieve orders data");
         OrderRes res = orderService.createOrder(req, userId);
+        log.info("After retrieve orders data");
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @GetMapping("/{userId}/orders")
     public ResponseEntity<List<OrderRes>> getOrder(@PathVariable("userId") String userId) {
+        log.info("Before retrieve orders data");
         List<OrderRes> res = new ArrayList<>();
         orderService.findAllByUserId(userId).forEach(order -> res.add(OrderRes.from(order)));
+        log.info("After retrieve orders data");
         return ResponseEntity.ok(res);
     }
 }

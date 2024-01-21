@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,5 +40,7 @@ public class KafkaConsumer {
         if (catalogJpaEntity != null) {
             catalogJpaEntity.setStock(catalogJpaEntity.getStock() - (Integer) map.get("quantity"));
         }
+
+        log.info("Method End Time : [{}]", LocalDateTime.now());
     }
 }

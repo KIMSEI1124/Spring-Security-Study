@@ -8,6 +8,9 @@ import com.devsei.userservice.dto.UserCreateRes;
 import com.devsei.userservice.dto.UserFindRes;
 import com.devsei.userservice.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
@@ -28,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RestTemplate restTemplate;
     private final Environment environment;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     @Override
     public UserCreateRes createUser(UserCreateReq req) {
@@ -47,13 +52,27 @@ public class UserServiceImpl implements UserService {
         );
 
         /* Using RestTemplate */
+//        String url = String.format("http://order-service/order-service/%s/orders", userId);
+//        ResponseEntity<List<OrderRes>> orderListResponse = restTemplate.exchange(url, HttpMethod.GET, null,
+//                new ParameterizedTypeReference<>() {
+//                });
+//        List<OrderRes> ordersList = orderListResponse.getBody();
+
+        log.info("Before call orders MS");
+        CircuitBreaker circuitbreaker = circuitBreakerFactory.create("circuitbreaker");
+        List<OrderRes> ordersList = circuitbreaker.run(() -> getOrders(userId),
+                throwable -> new ArrayList<>());
+        log.info("After call orders MS");
+
+        return UserFindRes.of(findUserEntity, ordersList);
+    }
+
+    private List<OrderRes> getOrders(String userId) {
         String url = String.format("http://order-service/order-service/%s/orders", userId);
         ResponseEntity<List<OrderRes>> orderListResponse = restTemplate.exchange(url, HttpMethod.GET, null,
                 new ParameterizedTypeReference<>() {
                 });
-        List<OrderRes> ordersList = orderListResponse.getBody();
-
-        return UserFindRes.of(findUserEntity, ordersList);
+        return orderListResponse.getBody();
     }
 
     @Override

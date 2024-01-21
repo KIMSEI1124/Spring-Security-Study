@@ -1,4 +1,4 @@
-version: "3" # docker-compose 버전 지정
+version: "3"
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -23,3 +23,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  # 분산 환경의 데이터 수집, 추적 시스템
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
